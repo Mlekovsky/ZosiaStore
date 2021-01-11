@@ -1,5 +1,4 @@
 ﻿using CleanArchitecture.Application.Common.Interfaces;
-using CleanArchitecture.Infrastructure.Files;
 using CleanArchitecture.Infrastructure.Identity;
 using CleanArchitecture.Infrastructure.Persistence;
 using CleanArchitecture.Infrastructure.Services;
@@ -30,8 +29,6 @@ namespace CleanArchitecture.Infrastructure
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
 
-            services.AddScoped<IDomainEventService, DomainEventService>();
-
             services
                 .AddDefaultIdentity<ApplicationUser>()
                 .AddRoles<IdentityRole>()
@@ -42,7 +39,6 @@ namespace CleanArchitecture.Infrastructure
 
             services.AddTransient<IDateTime, DateTimeService>();
             services.AddTransient<IIdentityService, IdentityService>();
-            services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();

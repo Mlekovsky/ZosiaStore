@@ -1,5 +1,4 @@
 ﻿using CleanArchitecture.Domain.Entities;
-using CleanArchitecture.Domain.ValueObjects;
 using CleanArchitecture.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using System.Linq;
@@ -18,7 +17,7 @@ namespace CleanArchitecture.Infrastructure.Persistence
                 await roleManager.CreateAsync(administratorRole);
             }
 
-            var administrator = new ApplicationUser { UserName = "administrator@localhost", Email = "administrator@localhost" };
+            var administrator = new ApplicationUser { UserName = "zosia@localhost", Email = "zosia@localhost" };
 
             if (userManager.Users.All(u => u.UserName != administrator.UserName))
             {
@@ -29,24 +28,30 @@ namespace CleanArchitecture.Infrastructure.Persistence
 
         public static async Task SeedSampleDataAsync(ApplicationDbContext context)
         {
-            // Seed, if necessary
-            if (!context.TodoLists.Any())
+            if (!context.Companies.Any())
             {
-                context.TodoLists.Add(new TodoList
+                context.Companies.Add(new Company
                 {
-                    Title = "Shopping",
-                    Colour = Colour.Blue,
-                    Items =
-                    {
-                        new TodoItem { Title = "Apples", Done = true },
-                        new TodoItem { Title = "Milk", Done = true },
-                        new TodoItem { Title = "Bread", Done = true },
-                        new TodoItem { Title = "Toilet paper" },
-                        new TodoItem { Title = "Pasta" },
-                        new TodoItem { Title = "Tissues" },
-                        new TodoItem { Title = "Tuna" },
-                        new TodoItem { Title = "Water" }
-                    }
+                    Adress = "Super ulica 23",
+                    Name = "Fajna firma 1"
+                });
+
+                context.Companies.Add(new Company
+                {
+                    Adress = "Boczna 45",
+                    Name = "Ciekawa firma"
+                });
+
+                context.Companies.Add(new Company
+                {
+                    Adress = "Klonowa 12",
+                    Name = "Szemrana firma"
+                });
+                
+                context.Companies.Add(new Company
+                {
+                    Adress = "Krótka 50",
+                    Name = "Długa firma"
                 });
 
                 await context.SaveChangesAsync();
